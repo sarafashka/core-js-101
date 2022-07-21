@@ -310,14 +310,19 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 
-function getPositivesCount(arr) {
-  return arr.reduce((count, item) => {
+function getPositivesCount(/* arr */) {
+  throw new Error('Not implemented');
+}
+/* return arr.reduce((count, item) => {
     if (item > 0 && typeof item === 'number') {
       count += 1;
     }
     return count;
   }, 0);
 }
+
+  return arr.flatMap((item, index) => new Array(index + 1).fill(item));
+*/
 
 /**
  * Sorts digit names
@@ -364,15 +369,17 @@ function getItemsSum(arr) {
  *  [ -1, 'false', null, 0 ] => 2
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
-function getFalsyValuesCount(arr) {
-  return arr.reduce((count, item) => {
+function getFalsyValuesCount(/* arr */) {
+  throw new Error('Not implemented');
+}
+/* return arr.reduce((count, item) => {
     if (Boolean(item) === false) {
       count += 1;
     }
     return count;
   }, 0);
 }
-
+/*
 /**
  * Returns a number of all occurrences of the specified item in an array
  *
@@ -387,14 +394,17 @@ function getFalsyValuesCount(arr) {
  *    [ null, undefined, null ], null => 2
  *    [ true, 0, 1, 'true' ], true => 1
  */
-function findAllOccurrences(arr, item) {
-  return arr.reduce((count, element) => {
+function findAllOccurrences(/* arr, item */) {
+  throw new Error('Not implemented');
+}
+/* return arr.reduce((count, element) => {
     if (element === item) {
       count += 1;
     }
     return count;
   }, 0);
 }
+*/
 
 /**
  * Concatenates all elements from specified array into single string with ',' delimiter
