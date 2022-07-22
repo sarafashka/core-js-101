@@ -310,19 +310,9 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 
-function getPositivesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getPositivesCount(arr) {
+  return arr.reduce((count, item) => (item > 0 && typeof item === 'number' ? count + 1 : count), 0);
 }
-/* return arr.reduce((count, item) => {
-    if (item > 0 && typeof item === 'number') {
-      count += 1;
-    }
-    return count;
-  }, 0);
-}
-
-  return arr.flatMap((item, index) => new Array(index + 1).fill(item));
-*/
 
 /**
  * Sorts digit names
@@ -337,8 +327,11 @@ function getPositivesCount(/* arr */) {
  *   [ 'nine','eight','nine','eight'] => [ 'eight','eight','nine','nine']
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  const numbers = [
+    'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine',
+  ];
+  return arr.sort((a, b) => numbers.indexOf(a) - numbers.indexOf(b));
 }
 
 /**
@@ -369,17 +362,9 @@ function getItemsSum(arr) {
  *  [ -1, 'false', null, 0 ] => 2
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
-function getFalsyValuesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getFalsyValuesCount(arr) {
+  return arr.reduce((count, item) => (Boolean(item) === false ? count + 1 : count), 0);
 }
-/* return arr.reduce((count, item) => {
-    if (Boolean(item) === false) {
-      count += 1;
-    }
-    return count;
-  }, 0);
-}
-/*
 /**
  * Returns a number of all occurrences of the specified item in an array
  *
@@ -394,17 +379,9 @@ function getFalsyValuesCount(/* arr */) {
  *    [ null, undefined, null ], null => 2
  *    [ true, 0, 1, 'true' ], true => 1
  */
-function findAllOccurrences(/* arr, item */) {
-  throw new Error('Not implemented');
+function findAllOccurrences(arr, item) {
+  return arr.reduce((count, element) => (item === element ? count + 1 : count), 0);
 }
-/* return arr.reduce((count, element) => {
-    if (element === item) {
-      count += 1;
-    }
-    return count;
-  }, 0);
-}
-*/
 
 /**
  * Concatenates all elements from specified array into single string with ',' delimiter
@@ -448,8 +425,16 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(/* arr */) {
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  return arr.sort((a, b) => {
+    if (a.country > b.country) {
+      return 1;
+    } if (a.country === b.country) {
+      if (a.city > b.city) {
+        return 1;
+      } return -1;
+    } return -1;
+  });
 }
 
 /**
@@ -584,8 +569,8 @@ function selectMany(arr, childrenSelector) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  return indexes.reduce((array, item) => array[item], arr);
 }
 
 

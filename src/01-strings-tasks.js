@@ -142,8 +142,10 @@ function removeFirstOccurrences(str, value) {
  *   '<span>' => 'span'
  *   '<a>' => 'a'
  */
-function unbracketTag(/* str */) {
-  throw new Error('Not implemented');
+function unbracketTag(str) {
+  const i = str.indexOf('<');
+  const j = str.lastIndexOf('>');
+  return str.slice(i + 1, j);
 }
 
 
@@ -203,8 +205,16 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  const w = '─';
+  const h = '│';
+  const space = ' ';
+  let rectangle = `┌${w.repeat(width - 2)}┐\n`;
+  for (let i = 1; i <= height - 2; i += 1) {
+    rectangle += `${h}${space.repeat(width - 2)}${h}\n`;
+  }
+  rectangle += `└${w.repeat(width - 2)}┘\n`;
+  return rectangle;
 }
 
 
@@ -224,8 +234,15 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const decode = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const code = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+
+  let newstr = '';
+  for (let i = 0; i < str.length; i += 1) {
+    newstr += decode.indexOf(str[i]) >= 0 ? code[decode.indexOf(str[i])] : str[i];
+  }
+  return newstr;
 }
 
 /**
@@ -270,8 +287,14 @@ function isString(value) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const cards = [
+    'A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
+    'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
+    'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
+    'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠',
+  ];
+  return cards.indexOf(value);
 }
 
 

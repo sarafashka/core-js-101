@@ -282,8 +282,16 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const arr = String(ccn).split('').reverse().map((item, index) => {
+    if (index % 2 !== 0) {
+      if (item < 5) {
+        return item * 2;
+      } return (item * 2).toString().split('').reduce((sum, el) => Number(sum) + Number(el));
+    } return item;
+  });
+  const check = arr.reduce((sum, item) => Number(sum) + Number(item));
+  return check % 10 === 0;
 }
 
 /**
@@ -331,8 +339,24 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  const stack = [];
+  const start = '{[(<';
+  const end = '}])>';
+  for (let n = 0; n < str.length; n += 1) {
+    const char = str[n];
+    for (let i = 0; i < start.length; i += 1) {
+      const top = stack[stack.length - 1];
+      if (char === start[i]) {
+        stack.push(char);
+      } if (char === end[i]) {
+        if (top === start[i]) {
+          stack.pop();
+        } else return false;
+      }
+    }
+  }
+  return !stack.length;
 }
 
 
@@ -356,8 +380,15 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  let rest = num;
+  const arr = [];
+  while (rest >= n) {
+    arr.push(rest % n);
+    rest = Math.floor(rest / n);
+  }
+  arr.push(rest);
+  return arr.reverse().join('');
 }
 
 
@@ -396,8 +427,22 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const rowsM1 = m1.length;
+  const colsM1 = m1[0].length;
+  const rowsM2 = m2.length;
+  const colsM2 = m2[0].length;
+  const result = [];
+  if (colsM1 !== rowsM2) return false;
+  for (let i = 0; i < rowsM1; i += 1) result[i] = [];
+  for (let k = 0; k < colsM2; k += 1) {
+    for (let i = 0; i < rowsM1; i += 1) {
+      let sum = 0;
+      for (let j = 0; j < rowsM2; j += 1) sum += m1[i][j] * m2[j][k];
+      result[i][k] = sum;
+    }
+  }
+  return result;
 }
 
 
