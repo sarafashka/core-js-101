@@ -164,8 +164,8 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  return (point.x - circle.center.x) ** 2 + (point.y - circle.center.y) ** 2 < circle.radius ** 2;
 }
 
 
@@ -404,8 +404,15 @@ function toNaryString(num, n) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  const pathesMap = pathes.map((path) => path.split('/'));
+  let result = pathesMap[0];
+  for (let i = 1; i < pathesMap.length; i += 1) {
+    result = result.filter((item) => pathesMap[i].includes(item));
+  }
+  if (result.length > 0) {
+    return `${result.join('/')}/`;
+  } return result;
 }
 
 
@@ -476,8 +483,35 @@ function getMatrixProduct(m1, m2) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  if ((position[0][0] === '0' && position[1][1] === '0' && position[2][2] === '0')
+  || (position[0][2] === '0' && position[1][1] === '0' && position[2][0] === '0')) return '0';
+  if ((position[0][0] === 'X' && position[1][1] === 'X' && position[2][2] === 'X')
+  || (position[0][2] === 'X' && position[1][1] === 'X' && position[2][0] === 'X')) return 'X';
+
+  const checkChar = (arr, char) => {
+    const check = arr.reduce((newarr, item) => {
+      if (item === char) {
+        newarr.push(item);
+      }
+      return newarr;
+    }, []);
+    return check.length === 3;
+  };
+  for (let i = 0; i < position.length; i += 1) {
+    if (checkChar(position[i], 'X')) return 'X';
+    if (checkChar(position[i], '0')) return '0';
+  }
+
+  for (let i = 0; i < position.length; i += 1) {
+    const col = [];
+    for (let j = 0; j < position[0].length; j += 1) {
+      col.push(position[j][i]);
+    }
+    if (checkChar(col, 'X')) return 'X';
+    if (checkChar(col, '0')) return '0';
+  }
+  return undefined;
 }
 
 
