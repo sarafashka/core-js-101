@@ -87,8 +87,8 @@ function getPolynom() {
  */
 function memoize(func) {
   const cache = {};
-  return (...args) => {
-    const n = args[0];
+  return (arg) => {
+    const n = arg;
     if (n in cache) {
       return cache[n];
     }
@@ -159,8 +159,8 @@ function logger(/* func, logFunc */) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(/* fn, ...args1 */) {
-  throw new Error('Not implemented');
+function partialUsingArguments(fn, ...args1) {
+  return (...x) => fn(...args1, ...x);
 }
 
 
